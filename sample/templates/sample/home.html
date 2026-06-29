@@ -1,0 +1,74 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Sample School</title>
+        <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="{% static 'css/sample.css' %}">
+    </head>
+    <body>
+        <header>
+            <h1><a href="/">Sample School</a></h1>
+        </header>
+        <h4>Student list</h4>
+        <table class="table table-bordered" id="studentTable">
+            <thead>
+            <tr>
+                <th>Photo</th>
+                <th>Name</th>
+                <th>Application No.</th>
+                <th>Admission No.</th>
+                <th>Admission Date</th>
+                <th>Class Section</th>
+                <th>Roll No.</th>
+                <th>DoB</th>
+                <th>Phone No.</th>
+                <th>Father's Name</th>
+                <th>Category</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for student in students %}
+            <tr>
+                <th>{{student.photo}}</th>
+                <th>{{ student.first_name }} {{ student.middle_name }} {{ student.last_name }} </th>
+                <th>{{ student.student_application_id }}</th>
+                <th>{{ student.admission_number }}</th>
+                <th>{{ student.admission_date }}</th>
+                <th>{{ student.grade_section_id }}</th>
+                <th>null</th>
+                <th>{{ student.dob }}</th>
+                <th>{{ student.comm_phone_number }}</th>
+                <th>{{ student.father_name }}</th>
+                <th>{{ student.category_id }}</th>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% if students.has_previous %}
+            <a href="?page=1">&laquo; First</a>
+            {% for i in minus_range %}
+                <a href="?page={{i}}">{{i}}</a>
+            {% endfor %}
+            <a href="?page={{students.previous_page_number}}">Prevous</a>
+        {% endif %}
+
+        Page {{students.number}} of {{students.paginator.num_pages}}
+
+        {% if students.has_next %}
+            <a href="?page={{students.next_page_number}}">Next</a>
+            {% for i in plus_range %}
+                <a href="?page={{i}}">{{i}}</a>
+            {% endfor %}
+            <a href="?page={{students.paginator.num_pages}}">Last &raquo;</a>
+        {% endif %}
+
+        <script>
+            
+        </script>
+    </body>
+</html>
